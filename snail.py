@@ -1,62 +1,43 @@
 def snail(lista: list):
-    n = len(lista) 
+    n = len(lista)
     estado = "a"
     item = 0
     ordenado = []
-    print(n*n)
+
     inicio = 0
-    final  = n - 1
-  
+    final = n - 1
 
-    while item < 90 :
+    while item < n*n:
+
         if estado == "a":
-            print("cambio")
-            for i in range(inicio,final + 1):
-                if i != final :
-                    elemento = lista[inicio][i]
-                    print(elemento)
-                    ordenado.append(elemento)
-                    item += 1
-                if i == final :
-                    estado = "b"
-                    break
+            for col in range(inicio, final+1):
+                ordenado.append(lista[inicio][col])
+                item += 1
+            estado = "b"
 
-        if estado == "b":
-            print("Cambio")
-            for i in range(inicio,final + 1):
-                if i != final :
-                    elemento = lista[inicio + i][final]
-                    print(elemento)
-                    ordenado.append(elemento)
-                    item += 1
-                if i == final :
-                    estado = "c"
-                    break
-        if estado == "c":
-            print("Cambio")
 
-            for i in range(inicio,final + 1):
-                if i != final:
-                    elemento = lista[final][final - i]
-                    print(elemento)
-                    ordenado.append(elemento)
-                    item += 1
-                if i == final:
-                    estado = "d"
-                    break
-        if estado == "d":
-            print("Cambio")
-            for i in range(inicio,final + 1):
-                if i != final :
-                    elemento = lista[final - i][inicio]
-                    print(elemento)
-                    ordenado.append(elemento)
-                    item += 1
-                if i == final :
-                    inicio += 1
-                    final -= 1
-                    estado = "a"
-                    break
+        elif estado == "b":
+            for fila in range(inicio+1, final+1):
+                ordenado.append(lista[fila][final])
+                item += 1
+            estado = "c"
+
+
+        elif estado == "c":
+            for col in range(final-1, inicio-1, -1):
+                ordenado.append(lista[final][col])
+                item += 1
+            estado = "d"
+
+        elif estado == "d":
+            for fila in range(final-1, inicio, -1):
+                ordenado.append(lista[fila][inicio])
+                item += 1
+
+            inicio += 1
+            final -= 1
+            estado = "a"
+
     return ordenado
 
 
